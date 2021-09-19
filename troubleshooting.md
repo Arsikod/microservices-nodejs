@@ -85,6 +85,8 @@ replace localhost with ticketing.dev
 
 ## Problem 8
 
+getaddrinfo ENOTFOUND ingress-nginx.ingress-nginx-controller.svc.cluster.local
+
 ## Solution 8
 
-Terminal:kub expose deployment ingress-nginx-controller --target-port=80 --type=NodePort -n kube-system
+VS Code: `http://ingress-nginx-controller.ingress-nginx.svc.cluster.local${AuthUrls.currentUser}`

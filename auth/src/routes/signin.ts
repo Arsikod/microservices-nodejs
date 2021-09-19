@@ -4,8 +4,7 @@ import jwt from "jsonwebtoken";
 
 import { AuthUrls } from "../enums/enums";
 import { Password } from "../services/password";
-import { BadRequestError } from "../errors/bad-request-error";
-import { validateRequest } from "../middlewares/validate-request";
+import { BadRequestError, validateRequest } from "@nurdev/common";
 
 import { User } from "../models/user";
 
