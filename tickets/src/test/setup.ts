@@ -5,6 +5,8 @@ import { AuthUrls } from "../enums/enums";
 import request from "supertest";
 import jwt from "jsonwebtoken";
 
+jest.mock("../nats-wrapper");
+
 let mongo: any;
 
 beforeAll(async () => {
@@ -16,6 +18,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+  jest.clearAllMocks();
   const collections = await mongoose.connection.db.collections();
 
   for (let collection of collections) {

@@ -90,3 +90,7 @@ getaddrinfo ENOTFOUND ingress-nginx.ingress-nginx-controller.svc.cluster.local
 ## Solution 8
 
 VS Code: `http://ingress-nginx-controller.ingress-nginx.svc.cluster.local${AuthUrls.currentUser}`
+
+## Port redirect
+
+kub port-forward nats-depl-77c5955577-jd7dz 4222:4222
