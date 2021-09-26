@@ -4,6 +4,8 @@ import request from "supertest";
 import { app } from "../../app";
 import { Order } from "../../models/order";
 import { Ticket } from "../../models/ticket";
+import { natsWrapper } from "../../nats-wrapper";
+import { buildOrder, buildTicket } from "./common";
 
 it("returns an error if ticket does not exist", async () => {
   const ticketId = new mongoose.Types.ObjectId().toHexString();
@@ -58,4 +60,11 @@ it("reserves a ticket", async () => {
       ticketId: ticket.id,
     })
     .expect(201);
+});
+
+it("emits an order created event", async () => {
+  const ticket = await buildTicket();
+  await buildOrder(global.signin(), ticket);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
