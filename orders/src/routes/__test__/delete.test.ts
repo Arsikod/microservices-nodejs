@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import request from "supertest";
 import { app } from "../../app";
 import { Order, OrderStatus } from "../../models/order";
@@ -6,6 +7,7 @@ import { natsWrapper } from "../../nats-wrapper";
 
 const buildTicket = async () => {
   const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
     title: "concert",
     price: 20,
   });

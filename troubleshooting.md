@@ -94,3 +94,4 @@ VS Code: `http://ingress-nginx-controller.ingress-nginx.svc.cluster.local${AuthU
 ## Port redirect
 
 kub port-forward nats-depl-77c5955577-jd7dz 4222:4222
+kub port-forward nats-depl-77c5955577-jd7dz 8222:8222

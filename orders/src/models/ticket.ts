@@ -1,4 +1,5 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 import { Order, OrderStatus } from "./order";
 
 interface TicketAttrs {
@@ -10,11 +11,16 @@ interface TicketAttrs {
 export interface TicketDoc extends mongoose.Document {
   title: string;
   price: number;
+  version: number;
   isReseved(): Promise<boolean>;
 }
 
 interface TicketModel extends mongoose.Model<TicketDoc> {
   build(attrs: TicketAttrs): TicketDoc;
+  findByEvent(event: {
+    id: string;
+    version: number;
+  }): Promise<TicketDoc | null>;
 }
 
 const ticketSchema = new mongoose.Schema(
@@ -39,6 +45,15 @@ const ticketSchema = new mongoose.Schema(
   }
 );
 
+ticketSchema.set("versionKey", "version");
+ticketSchema.plugin(updateIfCurrentPlugin);
+
+ticketSchema.statics.findByEvent = (event: { id: string; version: number }) => {
+  const { id, version } = event;
+
+  return Ticket.findOne({ _id: id, version: version - 1 });
+};
+
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
   return new Ticket({
     _id: attrs.id,
@@ -46,6 +61,7 @@ ticketSchema.statics.build = (attrs: TicketAttrs) => {
     price: attrs.price,
   });
 };
+
 ticketSchema.methods.isReseved = async function () {
   //this === ticket document
   const existingOrder = await Order.findOne({

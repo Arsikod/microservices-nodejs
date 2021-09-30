@@ -1,17 +1,7 @@
 import request from "supertest";
 import { app } from "../../app";
-import { Ticket, TicketDoc } from "../../models/ticket";
-
-const buildTicket = async () => {
-  const ticket = Ticket.build({
-    title: "concert",
-    price: 20,
-  });
-
-  await ticket.save();
-
-  return ticket;
-};
+import { TicketDoc } from "../../models/ticket";
+import { buildTicket } from "./common";
 
 const buildOrder = async (cookie: string[], ticket: TicketDoc) => {
   const order = await request(app)
