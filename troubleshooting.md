@@ -95,3 +95,11 @@ VS Code: `http://ingress-nginx-controller.ingress-nginx.svc.cluster.local${AuthU
 
 kub port-forward nats-depl-77c5955577-jd7dz 4222:4222
 kub port-forward nats-depl-77c5955577-jd7dz 8222:8222
+
+## Problem 9
+
+after ssd installation skaffold hangs up
+
+## Solution 9
+
+terminal: kubectl create secret generic jwt-secret --from-literal=JWT_KEY=asdf
