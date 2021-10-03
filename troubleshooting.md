@@ -93,8 +93,8 @@ VS Code: `http://ingress-nginx-controller.ingress-nginx.svc.cluster.local${AuthU
 
 ## Port redirect
 
-kub port-forward nats-depl-77c5955577-jd7dz 4222:4222
-kub port-forward nats-depl-77c5955577-jd7dz 8222:8222
+kubectl port-forward nats-depl-77c5955577-jd7dz 4222:4222
+kubectl port-forward nats-depl-77c5955577-jd7dz 8222:8222
 
 ## Problem 9
 
@@ -103,3 +103,11 @@ after ssd installation skaffold hangs up
 ## Solution 9
 
 terminal: kubectl create secret generic jwt-secret --from-literal=JWT_KEY=asdf
+
+## Problem 10
+
+Module not found: Error: Can't resolve 'prop-types' in 'node_modules/.registry.npmjs.org/react-stripe
+
+## Solution 10
+
+in client directory: npm i prop-types
